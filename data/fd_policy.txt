@@ -1,0 +1,16 @@
+Fixed Deposit Policy:
+
+Eligibility:
+- Indian residents above 18 years can open FD.
+- Minors allowed with guardian.
+- KYC required (PAN, Aadhaar).
+
+Interest Rates:
+- 1 year: 6.5%
+- 2 years: 6.8%
+- 3 years: 7.0%
+- Senior citizens: +0.5%
+
+Rules:
+- Premature withdrawal penalty: 1%
+- TDS if interest > 40,000
