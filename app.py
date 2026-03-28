@@ -1,44 +1,44 @@
 from langchain_community.document_loaders import TextLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import CharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains.retrieval_qa.base import RetrievalQA
-from langchain_community.llms import HuggingFacePipeline
 from langchain.prompts import PromptTemplate
-from transformers import pipeline
+
+# 🔥 OpenAI imports
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Load data
-loader = TextLoader("data/fd_policy.txt")
+loader = PyPDFLoader("data/HDFCT2_.pdf")
 documents = loader.load()
 
-# Split text (smaller chunks)
+# Split text
 text_splitter = CharacterTextSplitter(
-    chunk_size=100,
+    chunk_size=200,
     chunk_overlap=20
 )
 docs = text_splitter.split_documents(documents)
 
-# Embeddings
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
+# 🔥 Use OpenAI Embeddings (UPDATED)
+embeddings = OpenAIEmbeddings()
 
 # Vector DB
 vectorstore = FAISS.from_documents(docs, embeddings)
 
-# 🔥 Limit retrieved docs
+# Retriever
 retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
 
-# Local LLM
-pipe = pipeline(
-    "text-generation",
-    model="gpt2",
-    max_new_tokens=100   # 🔥 limit output
+# 🔥 GPT-3.5 LLM
+llm = ChatOpenAI(
+    model="gpt-4o-mini",
+    temperature=0
 )
 
-llm = HuggingFacePipeline(pipeline=pipe)
-
-# 🔥 Custom prompt (MAIN FIX)
+# Custom prompt
 prompt_template = """Use the context below to answer the question.
 Give a short, clear answer. Do NOT repeat the full context.
 
