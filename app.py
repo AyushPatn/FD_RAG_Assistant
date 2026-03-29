@@ -5,7 +5,7 @@ from langchain_community.vectorstores import FAISS
 from langchain.chains.retrieval_qa.base import RetrievalQA
 from langchain.prompts import PromptTemplate
 
-# 🔥 OpenAI imports
+# OpenAI imports
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 import os
 from dotenv import load_dotenv
@@ -23,7 +23,7 @@ text_splitter = CharacterTextSplitter(
 )
 docs = text_splitter.split_documents(documents)
 
-# 🔥 Use OpenAI Embeddings (UPDATED)
+# Use OpenAI Embeddings (UPDATED)
 embeddings = OpenAIEmbeddings()
 
 # Vector DB
@@ -32,7 +32,7 @@ vectorstore = FAISS.from_documents(docs, embeddings)
 # Retriever
 retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
 
-# 🔥 GPT-3.5 LLM
+# GPT-3.5 LLM
 llm = ChatOpenAI(
     model="gpt-4o-mini",
     temperature=0
@@ -63,7 +63,7 @@ qa = RetrievalQA.from_chain_type(
 )
 
 # Query
-query = input("Ask your FD question: ")
+query = input("Ask Questions related to MF -  ")
 
 response = qa.invoke({"query": query})
 
