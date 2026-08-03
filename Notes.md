@@ -41,3 +41,52 @@ example-(venv) C:\Users\Ayush\fd-rag-assistant> (now you are inside venv instead
 To check whether everything is installed or not 
 ---cmd
 *pip list
+
+
+# Explanation on code which has been written
+
+1.
+from langchain_community.document_loaders import TextLoader
+from langchain_community.document_loaders import PyPDFLoader
+
+Q1)What is langchain_community?
+ - module package inisde the Langchain
+Q2)What is document_loaders?
+ -It contains classes that load data from different sources like pdf,.txt,websites
+ -takes raw data and converts them into langchain documnets.
+Q3) How the textloader and pypdfloader works?
+ - Both the loaders are classes which is used to load text and pdf files.
+ -Reads the data and extract them into document object.
+Q4) what is document object?
+ -A Document object in LangChain is a structured format that contains text data in page_content and additional information in metadata.
+
+2.
+from langchain_text_splitters import CharacterTextSplitter
+Q1) what is CharacterTextSplitter?
+ -CharacterTextSplitter is a class used to split large text into smaller chunks
+ -The LLM cannot handle large documnets so we load the data and split te chunks and then convert he chunks into embeddings.
+
+3.
+from langchain_community.vectorstores import FAISS
+Q1) what is FAISS(facebook AI similarity search)?
+-It is a vector database / similarity search engine
+-after converting the text into chunks ,then the chunks is converted to embeddings to store an search in vector store through FAISS.
+
+4.
+from langchain.chains.retrieval_qa.base import RetrievalQA
+Q1) The RetrievalQA is a prebuilt chain by langchain which combines retrieval(FAISS)+ LLM to answer the questions.
+
+5.
+from langchain.prompts import PromptTemplate
+Q1)what is PromptTemplate?
+-it is a tool to create structured prompts for the LLM.
+-it is imporatnt to give clear instructions to LLM to answer the questions properly by the gven direction.
+-It allows dynamic insertion of variables like context and user queries, ensuring consistent and controlled responses in a RAG pipeline
+
+6.
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+Q1) what is chatopenAI?
+
+
+![alt text](image.png)
+-

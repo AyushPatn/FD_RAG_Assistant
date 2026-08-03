@@ -62,10 +62,14 @@ qa = RetrievalQA.from_chain_type(
     chain_type_kwargs={"prompt": PROMPT}
 )
 
-# Query
-query = input("Ask Questions related to MF -  ")
+def ask_loop():
+    query = input("Ask Questions related to MF -  ")
 
-response = qa.invoke({"query": query})
+    response = qa.invoke({"query": query})
 
-print("\nAnswer:")
-print(response["result"])
+    print("\nAnswer:")
+    print(response["result"])
+
+
+if __name__ == "__main__":
+    ask_loop()
